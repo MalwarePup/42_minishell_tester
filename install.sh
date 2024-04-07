@@ -1,34 +1,34 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-cd $HOME
-rm -rf 42_minishell_tester
+HOME_DIR="$HOME"
+TESTER_DIR="$HOME_DIR/.local/minishell_tester"
+RC_FILE="$HOME_DIR/.zshrc"
 
-mkdir 42_minishell_tester_tmp
+# Exit on error
+set -e
 
-cd 42_minishell_tester_tmp
+# Clean up previous installation
+rm -rf "$TESTER_DIR"
+mkdir -p "$TESTER_DIR"
 
-git clone https://github.com/zstenger93/42_minishell_tester.git
+# Clone the repository
+git clone git@github.com:MalwarePup/42_minishell_tester.git "$TESTER_DIR"
 
-cp -r 42_minishell_tester $HOME
-
-cd $HOME
-rm -rf 42_minishell_tester_tmp
-
-cd $HOME/42_minishell_tester
-chmod +x $HOME/42_minishell_tester/tester.sh
-
-RC_FILE=$HOME/.zshrc
-
-if [[ "$SHELL" == *"bash"* ]]; then  #  works no matter path is /usr/bin/bash or /bin/bash
-    RC_FILE="$HOME/.bashrc"
-elif [[ "$SHELL" == *"zsh"* ]]; then
-    RC_FILE="$HOME/.zshrc"
+# Determine the RC file based on the shell
+if [[ "$SHELL" == *"bash"* ]]; then
+		RC_FILE="$HOME_DIR/.bashrc"
 fi
 
-if ! grep "mstest=" $RC_FILE &> /dev/null; then
-	echo "mstest alias not present"
-	echo "Adding alias in file: $RC_FILE"
-	echo -e "\nalias mstest=\"bash $HOME/42_minishell_tester/tester.sh\"\n" >> $RC_FILE
+# Add mstest alias if not present
+if ! grep -Fq "mstest=" "$RC_FILE"; then
+		echo -e "\nalias mstest=\"bash $TESTER_DIR/tester.sh\"\n" >> "$RC_FILE"
+		echo "mstest alias added to $RC_FILE"
 fi
 
-exec $SHELL
+# Source the RC file to apply changes
+# Check if we are in an interactive shell before sourcing
+if [[ $- == *i* ]]; then
+	source "$RC_FILE"
+else
+	echo "Not sourcing $RC_FILE because the shell is not interactive. You may need to source it manually."
+fi
