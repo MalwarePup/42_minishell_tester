@@ -12,7 +12,7 @@ rm -rf "$TESTER_DIR"
 mkdir -p "$TESTER_DIR"
 
 # Clone the repository
-git clone git@github.com:MalwarePup/42_minishell_tester.git "$TESTER_DIR"
+git clone git@github.com:MalwarePup/minishell_tester.git "$TESTER_DIR"
 
 # Determine the RC file based on the shell
 if [[ "$SHELL" == *"bash"* ]]; then
