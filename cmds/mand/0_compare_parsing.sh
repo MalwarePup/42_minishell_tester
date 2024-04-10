@@ -2,6 +2,8 @@
 #                                COMPARE PARSING                               #
 # **************************************************************************** #
 
+>> >> >> >> >>
+
 ### comparing your input parsing to bash ###
 /bin/echo ""$?""
 
@@ -48,20 +50,6 @@
 /bin/echo '$?'
 
 /bin/echo "'$?'"
-
-/bin/echo \$USER
-
-/bin/echo \\$USER
-
-/bin/echo \\\$USER
-
-/bin/echo \\\\$USER
-
-/bin/echo \\\\\$USER
-
-/bin/echo \\\\\\\\\$USER
-
-/bin/echo \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$USER \$PATH \\$PWD
 
 /bin/echo "cat lol.c | cat > lol.c"
 

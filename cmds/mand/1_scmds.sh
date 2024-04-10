@@ -15,12 +15,6 @@ touch ""
 touch "  "
 /bin/rm -f "  "
 
-
-touch "
-"
-/bin/rm -f "
-"
-
 mkdir " "
 /bin/rm -rf " "
 
@@ -81,7 +75,8 @@ rm -rf " with spaces"
 #                                  BROKEN SCMD                                 #
 # **************************************************************************** #
 
-"."
+# the tester give bash "return 127", but this is false because bash return 2, error with the script?
+# "."
 
 .ls
 

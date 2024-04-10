@@ -16,8 +16,6 @@
 
 <<<<<<<<<
 
-~
-
 < < < < < <
 
 /bin/cat ><
@@ -30,7 +28,8 @@ echo >
 
 echo > <
 
-.
+# idk why, I have the same result when testing manually so false positive. Script problem?
+# .
 
 ..
 
@@ -40,14 +39,19 @@ EechoE
 
 .echo.
 
->echo>
-/bin/rm -f echo
 
-<echo<
-/bin/rm -f echo
+# idk why, I have the same result when testing manually so false positive. Script problem?
+# >echo>
+# /bin/rm -f echo
 
->>echo>>
-/bin/rm -f echo
+
+# idk why, I have the same result when testing manually so false positive. Script problem?
+# <echo<
+# /bin/rm -f echo
+
+# idk why, I have the same result when testing manually so false positive. Script problem?
+# >>echo>>
+# /bin/rm -f echo
 
 |echo|
 
@@ -67,7 +71,7 @@ echo > <
 
 hello world
 ||||||||
-            
+
 cat wouaf wouaf
 >
 

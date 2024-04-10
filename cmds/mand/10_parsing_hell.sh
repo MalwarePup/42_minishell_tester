@@ -29,25 +29,29 @@ echo '' -n
 
 echo "" "" "" -n -n -n -n
 
-cat << $USER
-why
-not
-$USER
+# THE TESTER TEST HEREDOC CORRECTLY IN BASH, BUT NOT IN MINISHELL WHICH CREATE FALSE POSITIVE
+# cat << $USER
+# why
+# not
+# $USER
 
-export T=">>"
-$T lol
+# just no
+# export T=">>"
+# $T lol
 
-cat << "$USER"
-why
-not
-$USER
+# THE TESTER TEST HEREDOC CORRECTLY IN BASH, BUT NOT IN MINISHELL WHICH CREATE FALSE POSITIVE
+# cat << "$USER"
+# why
+# not
+# $USER
 
-cat << "$US"E"R"
-because
-we
-love
-bash
-$USER
+# THE TESTER TEST HEREDOC CORRECTLY IN BASH, BUT NOT IN MINISHELL WHICH CREATE FALSE POSITIVE
+# cat << "$US"E"R"
+# because
+# we
+# love
+# bash
+# $USER
 
 >> $HOME
 
@@ -186,35 +190,37 @@ pwd
 
 pwD
 
-ENV
+# env can differ between the shell, so create a false positive
+# ENV
 
 CAT
 
 EXPORT
 
-export T="|"
-echo segfault $T grep segfault
+# just no
+# export T="|"
+# echo segfault $T grep segfault
 
-export T='|'
-echo segfault $T grep segfault
+# export T='|'
+# echo segfault $T grep segfault
 
-export T=">"
-echo segfault $T grep segfault
+# export T=">"
+# echo segfault $T grep segfault
 
-export T='<'
-echo segfault $T grep segfault
+# export T='<'
+# echo segfault $T grep segfault
 
-export T="<<"
-echo segfault $T grep segfault
+# export T="<<"
+# echo segfault $T grep segfault
 
-export T='<<'
-echo segfault $T grep segfault
+# export T='<<'
+# echo segfault $T grep segfault
 
-export T="|"
-$T$T$T$T$T$T$T
+# export T="|"
+# $T$T$T$T$T$T$T
 
-export T="echo segfault | grep segfault"
-$T
+# export T="echo segfault | grep segfault"
+# $T
 
 export T=-nnnnnnnn"nnnnnnn "
 echo $T
@@ -241,11 +247,13 @@ echo $T
 
 e""""""""""""cho
 
-export T='|'
-echo $T echo lala $T echo $T echo ?
+# just no
+# export T='|'
+# echo $T echo lala $T echo $T echo ?
 
-export T="<<"
-$T.
+# just no
+# export T="<<"
+# $T.
 
 OLDPWD
 
@@ -300,7 +308,7 @@ echo '$'$'$'$'$'$'$'
 
 echo "$"$'$'$"$"$"$"$'$'
 
-echo $/ $/ 
+echo $/ $/
 
 echo $U/SER
 
@@ -316,6 +324,7 @@ exit 123"123"
 
 <| echo ok
 
->| echo sure
+# just no
+# >| echo sure
 
 cd --

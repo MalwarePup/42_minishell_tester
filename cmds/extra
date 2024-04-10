@@ -1,0 +1,73 @@
+# **************************************************************************** #
+#                                EXTRA FEATURES                                #
+# **************************************************************************** #
+
+echo cd ~
+
+/bin/echo \$USER
+
+/bin/echo \\$USER
+
+/bin/echo \\\$USER
+
+/bin/echo \\\\$USER
+
+/bin/echo \\\\\$USER
+
+/bin/echo \\\\\\\\\$USER
+
+/bin/echo \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$USER \$PATH \\$PWD
+
+pwd
+cd ~
+cd -
+pwd
+
+pwd
+cd ~
+cd - ananas dot jpeg
+pwd
+
+pwd
+cd ~
+pwd
+
+pwd
+cd ~ asd w dd q asd
+pwd
+
+env what
+
+unset -TEST
+
+export -TEST=100
+
+export --TEST=123
+
+unset TES;T
+
+~
+
+cd ~
+
+cd ~/Desktop/
+pwd
+
+touch "
+"
+/bin/rm -f "
+"
+
+# create a false positive when testing
+env -i ./minishell
+cd /bin/
+ls
+
+echo "env | /usr/bin/wc -l" | env -i $MINISHELL_PATH"/"$EXECUTABLE
+echo $?
+
+echo "ls" | env -i $MINISHELL_PATH"/"$EXECUTABLE
+echo $?
+
+echo "unset PATH" | env -i $MINISHELL_PATH"/"$EXECUTABLE
+echo $?

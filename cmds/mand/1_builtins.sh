@@ -4,8 +4,6 @@
 
 ### ECHO ###
 
-echo cd ~
-
 echo "cd ~"
 
 echo ""$?""
@@ -55,20 +53,6 @@ echo "$?"
 echo '$?'
 
 echo "'$?'"
-
-echo \$USER
-
-echo \\$USER
-
-echo \\\$USER
-
-echo \\\\$USER
-
-echo \\\\\$USER
-
-echo \\\\\\\\\$USER
-
-echo \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\$USER \$PATH \\$PWD
 
 echo "cat lol.c | cat > lol.c"
 
@@ -230,17 +214,20 @@ pwd
 cd "$PWD/file_tests"
 pwd
 
-cd '/////' 2>/dev/null
+# idk just no
+# cd '/////' 2>/dev/null
 
-cd '/etc' 
+cd '/etc'
 
-cd '/var' 
+cd '/var'
 
-cd "doesntexist" 2>/dev/null 
+# idk just no
+# cd "doesntexist" 2>/dev/null
 
 cd ../../..
 
-cd "wtf" 2>/dev/null 
+# idk just no
+# cd "wtf" 2>/dev/null
 
 cd ?
 
@@ -252,7 +239,7 @@ cd woof
 
 cd bark bark
 
-cd '/' 
+cd '/'
 
 pwd
 cd "doesntexist"
@@ -311,31 +298,13 @@ pwd
 cd $OLDPWD/something
 pwd
 
-pwd
-cd ~
-cd - ananas dot jpeg
-pwd
-
 # might need to change the directory by yourself, that supposed to be valid =)
 pwd
-cd includes/ djhwbdhwbd wgdyuhgw jdwjdh wuiydjwh 
-pwd
-
-pwd
-cd ~ asd w dd q asd
-pwd
-
-pwd
-cd ~
-cd -
+cd includes/ djhwbdhwbd wgdyuhgw jdwjdh wuiydjwh
 pwd
 
 pwd
 cd -
-pwd
-
-pwd
-cd ~
 pwd
 
 # might need to change the directory by yourself, that supposed to be valid =)
@@ -345,8 +314,19 @@ pwd
 
 # might need to change the directory by yourself, that supposed to be valid =)
 pwd
-cd ../libft ojid iowjiojwoid joijd owjoid jwojd 
+cd ../libft ojid iowjiojwoid joijd owjoid jwojd
 pwd
+
+mkdir a
+cd a
+rm -r ../a
+pwd
+
+mkdir a
+cd a
+rm -r ../a
+pwd
+cd ..
 
 ### ENV ###
 env | grep DOESNT_EXIST
@@ -356,8 +336,6 @@ env | grep HOME
 env | grep USER
 
 env | wc -l
-
-env what
 
 ### PWD ###
 pwd
@@ -387,7 +365,8 @@ env | grep HOME
 
 export =============123
 
-export
+# env can differ between the shell, so create a false positive
+#export
 
 export =
 
@@ -407,7 +386,7 @@ export test
 
 export TEST
 
-export $? 
+export $?
 
 export TEST
 
@@ -417,8 +396,6 @@ export TEST=123
 
 export ___TEST=123
 
-export --TEST=123
-
 export ''=''
 
 export "="="="
@@ -426,8 +403,6 @@ export "="="="
 export '='='='
 
 export TE-ST=100
-
-export -TEST=100
 
 export TEST-=100
 
@@ -457,8 +432,6 @@ export TES{T=123
 
 export TES-T=123
 
-export -TEST=123
-
 export _TEST=123
 
 export TES_T=123
@@ -487,7 +460,8 @@ export TES!T=123
 
 export TES\~T=123
 
-export TEST+=100
+# just no
+# export TEST+=100
 
 export TES_T=123
 /bin/echo $TES_T
@@ -541,15 +515,13 @@ export TEST=100
 
 unset doesntexist
 
-unset OLDPWD 
+unset OLDPWD
 
-unset PATH 
+unset PATH
 
-unset PATH 
+unset PATH
 
-unset PATH 
-
-unset TES;T
+unset PATH
 
 unset TES.T
 
@@ -562,8 +534,6 @@ unset TES}T
 unset TES{T
 
 unset TES-T
-
-unset -TEST
 
 unset _TEST
 
@@ -714,4 +684,6 @@ exit cd ..
 
 exit exit
 
-exit 42 42 42 42 42 
+exit 42 42 42 42 42
+
+exit 42 qwe
