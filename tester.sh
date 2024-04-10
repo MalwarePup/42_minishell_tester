@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Change if you store the tester in another PATH
 MINISHELL_PATH=./
 EXECUTABLE=minishell
 RUNDIR=$HOME/.local/minishell_tester
+if [[ $(uname) == "Linux" ]]; then
+	RUNDIR=/Users/$USER/.local/minishell_tester
+fi
 
 NL=$'\n'
 TAB=$'\t'
@@ -188,7 +191,7 @@ test_from_file() {
 			# INPUT=${INPUT%?}
 			echo -n "$INPUT" | $MINISHELL_PATH/$EXECUTABLE 2>tmp_err_minishell >tmp_out_minishell
 			exit_minishell=$?
-			echo -n "enable -n .$NL$INPUT" | bash 2>tmp_err_bash >tmp_out_bash
+			echo -n "enable -n .$NL$INPUT" | bash --posix 2>tmp_err_bash >tmp_out_bash
 			exit_bash=$?
 			echo -ne "\033[1;34mSTD_OUT:\033[m "
 			if ! diff -q tmp_out_minishell tmp_out_bash >/dev/null ;
@@ -253,8 +256,6 @@ test_leaks() {
 		end_of_file=$?
 		((line_count++))
 		if [[ $line == \#* ]] || [[ $line == "" ]] ; then
-			# if [[ $line == "###"[[:blank:]]*[[:blank:]]"###" ]] ; then
-			# 	echo -e "\033[1;33m$line\033[m"
 			if [[ $line == "#"[[:blank:]]*[[:blank:]]"#" ]] ; then
 				echo -e "\033[1;33m		$line\033[m" | tr '\t' '    '
 			fi
@@ -269,10 +270,9 @@ test_leaks() {
 				end_of_file=$?
 				((line_count++))
 			done
-			# INPUT=${INPUT%?}
 			echo -n "$INPUT" | $MINISHELL_PATH/$EXECUTABLE 2>tmp_err_minishell >tmp_out_minishell
 			exit_minishell=$?
-			echo -n "enable -n .$NL$INPUT" | bash 2>tmp_err_bash >tmp_out_bash
+			echo -n "enable -n .$NL$INPUT" | bash --posix 2>tmp_err_bash >tmp_out_bash
 			exit_bash=$?
 			echo -ne "\033[1;34mSTD_OUT:\033[m "
 			if ! diff -q tmp_out_minishell tmp_out_bash >/dev/null ;
@@ -309,26 +309,31 @@ test_leaks() {
 			fi
 			echo -ne "\033[1;36mLEAKS:\033[m "
 			echo -n "$INPUT" | valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=tmp_valgrind-out.txt $MINISHELL_PATH/$EXECUTABLE 2>/dev/null >/dev/null
-			# Get the number of bytes lost
 			definitely_lost=$(cat tmp_valgrind-out.txt | grep "definitely lost:" | awk 'END{print $4}')
 			possibly_lost=$(cat tmp_valgrind-out.txt | grep "possibly lost:" | awk 'END{print $4}')
 			indirectly_lost=$(cat tmp_valgrind-out.txt | grep "indirectly lost:" | awk 'END{print $4}')
 			all_blocks_freed=$(cat tmp_valgrind-out.txt | grep "All heap blocks were freed -- no leaks are possible")
-			# echo "$definitely_lost"
-			# echo "$possibly_lost"
-			# echo "$indirectly_lost"
-			# Check if any bytes were lost
-			if [ "$definitely_lost" != "0" ] || [ "$possibly_lost" != "0" ] || [ "$indirectly_lost" != "0" ] && [[ -z "$all_blocks_freed" ]];
+			mem_error=$(cat tmp_valgrind-out.txt | grep "ERROR SUMMARY:" | awk 'END{print $4}')
+			if [ "$definitely_lost" != "0" ] || [ "$possibly_lost" != "0" ] || [ "$indirectly_lost" != "0" ] || [ "$mem_error" != "0" ] && [[ -z "$all_blocks_freed" ]];
 			then
 				echo -ne "❌ "
 				((LEAKS++))
 			else
 				echo -ne "✅ "
 			fi
+			# echo -ne "\033[1;MEMERR:\033[m "
+			# if ;
+			# then
+			# 	echo -ne "❌ "
+			# 	((FAILED++))
+			# else
+			# 	echo -ne "✅ "
+			# fi
 			INPUT=""
 			((i++))
 			((TEST_COUNT++))
 			echo -e "\033[0;90m$1:$tmp_line_count\033[m  "
+			# printf "\033[0;90m%s:%s\033[m  " "$1" "$tmp_line_count"
 			if [[ $ONE == 1 && $TWO == 1 && $THREE == 1 ]] ;
 			then
 				((GOOD_TEST++))
@@ -374,7 +379,7 @@ test_without_env() {
 			# INPUT=${INPUT%?}
 			echo -n "$INPUT" | env -i $MINISHELL_PATH/$EXECUTABLE 2>tmp_err_minishell >tmp_out_minishell
 			exit_minishell=$?
-			echo -n "enable -n .$NL$INPUT" | env -i bash 2>tmp_err_bash >tmp_out_bash
+			echo -n "enable -n .$NL$INPUT" | env -i bash --posix 2>tmp_err_bash >tmp_out_bash
 			exit_bash=$?
 			echo -ne "\033[1;34mSTD_OUT:\033[m "
 			if ! diff -q tmp_out_minishell tmp_out_bash >/dev/null ;
@@ -432,4 +437,4 @@ test_without_env() {
 main "$@"
 
 # Clean all tmp files
-[[ $1 != "-f" ]] && rm -f tmp_*
+[[ $1 != "-f" ]] && rm -f tmp_* grep
